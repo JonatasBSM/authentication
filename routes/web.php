@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware(\App\Http\Middleware\Autenticar::class);
+})->middleware(\App\Http\Middleware\Authenticate::class);
 
 
 Route::controller(\App\Http\Controllers\LoginController::class)->group( function () {
@@ -23,6 +23,7 @@ Route::controller(\App\Http\Controllers\LoginController::class)->group( function
     Route::prefix('login')->group(function () {
         Route::get('/','index')->name('login');
         Route::post('/signIn', 'signIn');
+        Route::post('/signOut', 'signOut');
     });
 
 });
@@ -31,7 +32,7 @@ Route::controller(\App\Http\Controllers\RegisterController::class)->group(functi
 
     Route::prefix('register')->group(function () {
         Route::get('/', 'index');
-        Route::post('/store', 'register');
+        Route::post('/signUp', 'register');
     });
 });
 

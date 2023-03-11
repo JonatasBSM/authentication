@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|string|min:10|max:60|regex: /[aA-zZ]*\s*/',
             'email' => 'required|email',
-            'password' => 'required|min:8|regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'
+            'password' => 'required|min:8|regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/|confirmed'
         ];
     }
 
@@ -41,7 +41,8 @@ class RegisterRequest extends FormRequest
 
             'password.required' => 'Password can\'t be null',
             'password.min:10' => 'Password must have at least 10 characters',
-            'password.regex' => 'Password must have one letter, one number and one special character'
+            'password.regex' => 'Password must have one letter, one number and one special character',
+            'password.confirmed' => 'Passwords need to be equal'
         ];
     }
 }
