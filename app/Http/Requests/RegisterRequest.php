@@ -22,7 +22,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:10|max:60',
+            'name' => 'required|string|min:10|max:60|regex: /[aA-zZ]*\s*/',
             'email' => 'required|email',
             'password' => 'required|min:8|regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'
         ];
@@ -30,17 +30,18 @@ class RegisterRequest extends FormRequest
 
     public function messages() {
         return [
-            'name.required' => 'O campo Nome é obrigatório.',
-            'name.string' => 'O nome deve ser formado apenas por letras.',
-            'name.min:10' => 'O nome deve ter no mínimo 10 letras.',
-            'name.max:60' => 'O nome deve ter no máximo 60 letras.',
+            'name.required' => 'Name can\'t be null',
+            'name.string' => 'Name can only have letters',
+            'name.min' => 'Name must have at least 10 letters',
+            'name.max' => 'Name must have a maximum of 60 letters',
+            'name.regex' => 'Name is not in the right format',
 
-            'email.required' => 'O campo Email é obrigatório.',
-            'email.email' => 'O email digitado não está no formato correto.',
+            'email.required' => 'Email can\'t be null',
+            'email.email' => 'Email is not in the right format.',
 
-            'password.required' => 'O campo Senha é obrigatório.',
-            'password.min:10' => 'A senha deve ter no mínimo 8 letras.',
-            'password.regex' => 'A senha deve ter pelo menos uma letra, um número e um caractere especial'
+            'password.required' => 'Password can\'t be null',
+            'password.min:10' => 'Password must have at least 10 characters',
+            'password.regex' => 'Password must have one letter, one number and one special character'
         ];
     }
 }

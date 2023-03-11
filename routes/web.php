@@ -19,8 +19,19 @@ Route::get('/', function () {
 
 
 Route::controller(\App\Http\Controllers\LoginController::class)->group( function () {
-    Route::get('/login','index')->name('login');
-    Route::post('/signIn', 'signIn');
-    Route::post('/register', 'register');
+
+    Route::prefix('login')->group(function () {
+        Route::get('/','index')->name('login');
+        Route::post('/signIn', 'signIn');
+    });
+
+});
+
+Route::controller(\App\Http\Controllers\RegisterController::class)->group(function () {
+
+    Route::prefix('register')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/store', 'register');
+    });
 });
 
