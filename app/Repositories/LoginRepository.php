@@ -20,6 +20,6 @@ class LoginRepository
         if(!$user->save())
             return throw new QueryException("Não foi possível cadastrar seu usuário");
 
-       dd("os");
+       return true;
     }
 }
