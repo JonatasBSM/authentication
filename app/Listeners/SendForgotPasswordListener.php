@@ -22,6 +22,6 @@ class SendForgotPasswordListener
      */
     public function handle(object $event): void
     {
-        Mail::to($event->email)->send(new RecoverPasswordMail());
+        Mail::to($event->data['email'])->send(new RecoverPasswordMail($event->data['link']));
     }
 }

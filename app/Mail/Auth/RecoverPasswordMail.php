@@ -15,9 +15,12 @@ class RecoverPasswordMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+
+    public $link;
+
+    public function __construct(string $link)
     {
-        //
+        $this->link = $link;
     }
 
     /**
