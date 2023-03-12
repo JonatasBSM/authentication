@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->middleware('authenticator');
 
 
-Route::controller(\App\Http\Controllers\LoginController::class)->group( function () {
+Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( function () {
 
     Route::prefix('login')->group(function () {
         Route::get('/','index')->name('login');
@@ -28,7 +28,7 @@ Route::controller(\App\Http\Controllers\LoginController::class)->group( function
 
 });
 
-Route::controller(\App\Http\Controllers\RegisterController::class)->group(function () {
+Route::controller(\App\Http\Controllers\Auth\RegisterController::class)->group(function () {
 
     Route::prefix('register')->group(function () {
         Route::get('/', 'index');

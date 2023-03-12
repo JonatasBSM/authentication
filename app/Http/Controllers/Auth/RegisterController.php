@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\RegisterRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\UserRepository;
-use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class RegisterController extends Controller
 {
     public function index() {
 
-        //Return register blade/component
+        //Return register view/component
         return ;
     }
 
@@ -22,7 +23,10 @@ class RegisterController extends Controller
             'password'=> $request->password,
         ];
 
-        return $repository->register($data);
+        if(!$repository->store($data))
+            return throw new QueryException("User could not me registered.");
+
+        return true;
 
     }
 }

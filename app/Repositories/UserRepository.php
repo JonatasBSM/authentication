@@ -3,13 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserRepository
 {
-    public function register(array $data) {
+    public function store(array $data) {
 
         $user = new User([
             'name' => $data['name'],
@@ -18,8 +18,18 @@ class UserRepository
         ]);
 
         if(!$user->save())
-            return throw new QueryException("Não foi possível cadastrar seu usuário");
+            return false;
 
        return true;
     }
+
+    public function update(array $data) {
+
+        $user = User::where('email', $data['email']);
+        if(!$user->update([]))
+            return false;
+
+        return true;
+    }
+
 }
