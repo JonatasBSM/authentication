@@ -24,7 +24,7 @@ class RegisterController extends Controller
         ];
 
         if(!$repository->store($data))
-            return throw new QueryException("User could not me registered.");
+            return throw new QueryException("An error ocurred while registering your user, please try again later");
 
         return true;
 

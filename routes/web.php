@@ -32,7 +32,14 @@ Route::controller(\App\Http\Controllers\Auth\RegisterController::class)->group(f
 
     Route::prefix('register')->group(function () {
         Route::get('/', 'index');
-        Route::post('/signUp', 'register');
+        Route::post('/signUp', 'signUp');
+    });
+});
+
+Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->group(function () {
+    Route::prefix('password-recover')->group(function () {
+        Route::get('/', 'index');
+        Route::post('recover', 'recoverPassword');
     });
 });
 
