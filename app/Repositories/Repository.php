@@ -11,9 +11,9 @@ class Repository
     private $path;
 
     public function __construct() {
-        preg_match("/[^\\\]*$/", get_class($this), $modelName);
-        $modelName = str_replace('Repository', '', $modelName);
-        $this->path = 'App\Models'.'\\'.collect($modelName)->first();
+        $modelName = new \ReflectionClass($this);
+        $modelNameToPath = str_replace('Repository', '', $modelName->getShortName());
+        $this->path = 'App\Models'.'\\'.collect($modelNameToPath)->first();
         $this->model = new $this->path();
     }
     public function find(
