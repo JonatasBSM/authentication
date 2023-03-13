@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repository\Eloquent;
 
 use App\Models\PasswordResetTokens;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\App;
+use App\Repository\Interfaces\PasswordResetTokensInterface;
 use Illuminate\Support\Str;
 
-class PasswordResetTokensRepository extends repository
+class PasswordResetTokensRepository extends Repository implements PasswordResetTokensInterface
 {
-    public function store(string $email):bool {
+    public function create($email) {
         $PasswordResetTokens = new PasswordResetTokens([
             'email' => $email,
             'token' => Str::random(100)
@@ -20,5 +19,6 @@ class PasswordResetTokensRepository extends repository
 
         return true;
     }
+
 
 }

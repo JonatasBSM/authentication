@@ -39,7 +39,8 @@ Route::controller(\App\Http\Controllers\Auth\RegisterController::class)->group(f
 Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->group(function () {
     Route::prefix('password-recover')->group(function () {
         Route::get('/', 'index');
-        Route::post('/reset', 'resetPassword');
+        Route::post('/reset', 'thanCreate');
+        Route::get('/reset/{token}/{email}');
     });
 });
 

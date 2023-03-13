@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repository\Eloquent;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class UserRepository
 {
