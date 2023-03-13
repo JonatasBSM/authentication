@@ -26,15 +26,21 @@ class ForgotPasswordController extends Controller
 
         $repository->thenCreate(
             "PasswordResetTokens",
-            ["email" => "jonatasbsmcarvalho@gmail.com"],
+            ["email" => $request->email],
             ["token" => $token],
             ["email" => "jonatasbsmcarvalho@gmail.com", "token" => $token]
         );
 
-        /*  RecoverPasswordEvent::dispatch([
+        $token = $repository->findAndReturn(
+            ['email' => $request->email],
+            'created_at',
+            'token'
+        );
+
+          RecoverPasswordEvent::dispatch([
             'email' => $request->email,
             'link' => config('base_url').'/password-recover/'.$token.'?'.'email='.$request->email
-        ]);*/
+        ]);
 
 
     }

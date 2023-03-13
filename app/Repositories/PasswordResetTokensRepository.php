@@ -22,12 +22,12 @@ class PasswordResetTokensRepository
     }
 
 
-    public function findAndReturn(string $column,mixed $value,string $orderColumn,string $returnedValue, bool $desc = false):mixed {
+    public function findAndReturn(array $column,string $orderColumn,string $returnedValue, bool $desc = false):mixed {
 
         if($desc)
-            $dbInstance = PasswordResetTokens::where($column, $value)->orderBy($orderColumn, 'desc')->first();
+            $dbInstance = PasswordResetTokens::where($column)->orderBy($orderColumn, 'desc')->first();
 
-        $dbInstance = PasswordResetTokens::where($column, $value)->orderBy($orderColumn)->first();
+        $dbInstance = PasswordResetTokens::where($column)->orderBy($orderColumn)->first();
 
         if(!$dbInstance)
             return null;
