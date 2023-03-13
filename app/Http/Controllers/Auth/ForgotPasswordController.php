@@ -25,14 +25,12 @@ class ForgotPasswordController extends Controller
         $token = Str::random(100);
 
         $repository->thenCreate(
-            "PasswordResetTokens",
             ["email" => $request->email],
             ["token" => $token],
             ["email" => "jonatasbsmcarvalho@gmail.com", "token" => $token]
         );
 
-        $token = $repository->findAndReturn(
-            'PasswordResetTokens',
+        $token = $repository->find(
             ['email' => $request->email],
             'created_at',
             'token'
