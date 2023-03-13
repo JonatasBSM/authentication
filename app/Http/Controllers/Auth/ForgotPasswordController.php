@@ -32,6 +32,7 @@ class ForgotPasswordController extends Controller
         );
 
         $token = $repository->findAndReturn(
+            'PasswordResetTokens',
             ['email' => $request->email],
             'created_at',
             'token'
