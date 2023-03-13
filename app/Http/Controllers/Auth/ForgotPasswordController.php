@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Repositories\PasswordResetTokensRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
@@ -19,17 +20,21 @@ class ForgotPasswordController extends Controller
 
     public function resetPassword(PasswordResetTokensRepository $repository,ForgotPasswordRequest $request) {
 
-        if(!$repository->store($request->email))
-            throw new QueryException('An error ocurred while registering your reset token, please try again later');
 
-        $token = $repository->findAndReturnAttributeByColumnName(
-            'email', $request->email, 'created_at', true, 'token'
+
+        $token = Str::random(100);
+
+        $repository->thenCreate(
+            "PasswordResetTokens",
+            ["email" => "jonatasbsmcarvalho@gmail.com"],
+            ["token" => $token],
+            ["email" => "jonatasbsmcarvalho@gmail.com", "token" => $token]
         );
 
-        RecoverPasswordEvent::dispatch([
+        /*  RecoverPasswordEvent::dispatch([
             'email' => $request->email,
             'link' => config('base_url').'/password-recover/'.$token.'?'.'email='.$request->email
-        ]);
+        ]);*/
 
 
     }
