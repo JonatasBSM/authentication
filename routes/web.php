@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('authenticator');
-
-
 Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( function () {
 
     Route::prefix('login')->group(function () {
@@ -28,18 +23,7 @@ Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( fun
 
 });
 
-Route::controller(\App\Http\Controllers\Auth\RegisterController::class)->group(function () {
-    Route::prefix('register')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/sign-up', 'store');
-    });
-});
+Route::resource('register', \App\Http\Controllers\Auth\RegisterController::class);
 
-Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->group(function () {
-    Route::prefix('password-recover')->group(function () {
-        Route::get('/', 'index');
-        Route::post('/reset', 'thanCreate');
-        Route::get('/reset/{token}/{email}');
-    });
-});
+Route::resource('reset-password', \App\Http\Controllers\Auth\ForgotPasswordController::class);
 

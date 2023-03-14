@@ -30,7 +30,5 @@ class RegisterController extends Controller
         if(!$this->repository->create($data))
             throw new \Exception("An error ocurred while registering your user, please try again later");
 
-        return true;
-
     }
 }

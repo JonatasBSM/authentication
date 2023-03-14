@@ -34,9 +34,19 @@ class ForgotPasswordController extends Controller
     public function update(ForgotPasswordRequest $request) {
 
         $data = $request->validated();
-        $data['token'] = Hash::make($data['token']);
+        $token = Str::random(100);
 
-        return $this->repository->update($data['email'], $data);
+        $this->repository->thenCreate(
+            $data['email'],
+            ["token" => $token],
+            [$data['email'], "token" => $token]
+        );
+
+        RecoverPasswordEvent::dispatch([
+            'email' => $request->email,
+            'link' => config('base_url').'/password-recover/reset/'.'token?token='.$token.'/email?email='.$request->email
+        ]);
+
     }
 
     public function destroy(ForgotPasswordRequest $request) {
@@ -58,21 +68,4 @@ class ForgotPasswordController extends Controller
         return $this->repository->all();
     }
 
-    public function thanCreate(ForgotPasswordRequest $request) {
-
-        $data = $request->validated();
-        $token = Str::random(100);
-
-        $this->repository->thenCreate(
-            $data['email'],
-            ["token" => $token],
-            [$data['email'], "token" => $token]
-        );
-
-          RecoverPasswordEvent::dispatch([
-            'email' => $request->email,
-            'link' => config('base_url').'/password-recover/reset/'.'token?token='.$token.'/email?email='.$request->email
-        ]);
-
-    }
 }
