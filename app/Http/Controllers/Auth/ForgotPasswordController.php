@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
 
         RecoverPasswordEvent::dispatch([
             'email' => $request->email,
-            'link' => config('base_url').'/password-recover/reset/'.'token?token='.$token.'/email?email='.$request->email
+            'token' => $token
         ]);
 
     }

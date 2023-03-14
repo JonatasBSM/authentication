@@ -16,11 +16,13 @@ class RecoverPasswordMail extends Mailable
      * Create a new message instance.
      */
 
-    public $link;
+    public $token;
+    public $email;
 
-    public function __construct(string $link)
+    public function __construct(array $data)
     {
-        $this->link = $link;
+        $this->token = $data['token'];
+        $this->email = $data['email'];
     }
 
     /**
