@@ -12,7 +12,7 @@ class ResetPasswordController extends Controller
      */
     public function index()
     {
-        //
+        dd("Achou!");
     }
 
     /**
