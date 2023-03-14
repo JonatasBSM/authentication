@@ -3,18 +3,13 @@
 namespace App\Repository\Eloquent;
 
 use App\Repository\Interfaces\RepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 class Repository implements RepositoryInterface
 {
 
-    private $model;
-    private $path;
+    public function __construct(protected Model $model) {
 
-    public function __construct() {
-        $modelName = new \ReflectionClass($this);
-        $modelNameToPath = str_replace('Repository', '', $modelName->getShortName());
-        $this->path = 'App\Models'.'\\'.collect($modelNameToPath)->first();
-        $this->model = new $this->path();
     }
 
     public function create($data)

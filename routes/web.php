@@ -29,10 +29,9 @@ Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( fun
 });
 
 Route::controller(\App\Http\Controllers\Auth\RegisterController::class)->group(function () {
-
     Route::prefix('register')->group(function () {
         Route::get('/', 'index');
-        Route::post('/signUp', 'signUp');
+        Route::post('/sign-up', 'store');
     });
 });
 
