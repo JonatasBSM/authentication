@@ -27,6 +27,9 @@ Route::resource('register', \App\Http\Controllers\Auth\RegisterController::class
 
 Route::resource('forgot-password', \App\Http\Controllers\Auth\ForgotPasswordController::class);
 
-Route::resource('reset-password', \App\Http\Controllers\ResetPasswordController::class)->parameters([
-    'reset-password' => '{$token}/{$email}'
-]);
+Route::controller(\App\Http\Controllers\ResetPasswordController::class)->group(function () {
+    Route::prefix('/reset-password')->group(function () {
+        Route::get('/{token}', 'index')->name('resetPassword');
+        Route::put('/update/', 'update');
+    });
+});
