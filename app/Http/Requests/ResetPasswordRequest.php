@@ -24,7 +24,8 @@ class ResetPasswordRequest extends FormRequest
         return [
             'token' => 'required|string|exists:password_reset_tokens',
             'email' => 'required|email|exists:password_reset_tokens',
-            'password' => 'required|min:8|regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/|confirmed'
+            'password' => 'required|min:8|regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/|confirmed',
+            'id' => 'exists:User'
         ];
     }
 
@@ -42,6 +43,8 @@ class ResetPasswordRequest extends FormRequest
             'password.min:10' => 'Password must have at least 10 characters',
             'password.regex' => 'Password must have one letter, one number and one special character',
             'password.confirmed' => 'Passwords need to be equal'
+
+            'id.exists' => 'ID not found'
         ];
     }
 }
