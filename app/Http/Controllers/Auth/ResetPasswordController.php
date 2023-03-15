@@ -32,11 +32,16 @@ class ResetPasswordController extends Controller
     {
 
         $data = $request->validated();
+        $id = $this->repository->getId($data['email']);
 
-        $this->repository->update(
-            $data['email'],
-            ["password" => $data['password']]
-        );
+
+        if($this->repository->find($id))
+            return $this->repository->update(
+                $data['email'],
+                ["password" => $data['password']]
+            );
+
+        return true;
     }
 
 }
