@@ -25,11 +25,16 @@ Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( fun
 
 Route::resource('register', \App\Http\Controllers\Auth\RegisterController::class);
 
-Route::resource('forgot-password', \App\Http\Controllers\Auth\ForgotPasswordController::class);
+Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->group(function () {
+    Route::prefix('forgot-password')->group(function () {
+        Route::get('/', 'index');
+        Route::put('/send-email', 'sendEmail');
+    });
+});
 
-Route::controller(\App\Http\Controllers\ResetPasswordController::class)->group(function () {
+Route::controller(\App\Http\Controllers\Auth\ResetPasswordController::class)->group(function () {
     Route::prefix('/reset-password')->group(function () {
-        Route::get('/{token}', 'index')->name('resetPassword');
+        Route::get('/{token}/{email}', 'index')->name('resetPassword');
         Route::put('/update/', 'update');
     });
 });

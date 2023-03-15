@@ -24,48 +24,16 @@ class ForgotPasswordController extends Controller
         return;
     }
 
-    public function store(ForgotPasswordRequest $request) {
-
-        $data = $request->validated();
-
-        return $this->repository->create($data);
-    }
-
-    public function update(ForgotPasswordRequest $request) {
+    public function sendEmail(ForgotPasswordRequest $request) {
 
         $data = $request->validated();
         $token = Str::random(100);
 
-        $this->repository->thenCreate(
-            $data['email'],
-            ["token" => $token],
-            [$data['email'], "token" => $token]
-        );
-
         RecoverPasswordEvent::dispatch([
-            'email' => $request->email,
+            'email' => $data->email,
             'token' => $token
         ]);
 
-    }
-
-    public function destroy(ForgotPasswordRequest $request) {
-
-        $data = $request->validated();
-
-        return $this->repository->destroy($data);
-    }
-
-
-    public function show(ForgotPasswordRequest $request) {
-
-        $data = $request->validated();
-
-        return $this->repository->find($data);
-    }
-
-    public function showAll() {
-        return $this->repository->all();
     }
 
 }
