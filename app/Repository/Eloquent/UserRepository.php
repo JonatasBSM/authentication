@@ -14,4 +14,10 @@ class UserRepository extends Repository implements UserRepositoryInterface
         parent::__construct(new User());
     }
 
+    public function getId(string $email)
+    {
+        return $this->model->getId($email);
+    }
+
+
 }

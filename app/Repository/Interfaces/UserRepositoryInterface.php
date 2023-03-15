@@ -5,4 +5,6 @@ namespace App\Repository\Interfaces;
 interface UserRepositoryInterface
 {
 
+    public function getId(string $email);
+
 }

@@ -19,7 +19,7 @@ class Repository implements RepositoryInterface
 
     public function update($primaryKey, $data)
     {
-        return $this->model->where("id", "=",$primaryKey)->update($data);
+        return $this->find($primaryKey)->update($data);
     }
 
     public function destroy($primaryKey)
