@@ -29,6 +29,15 @@ class ForgotPasswordController extends Controller
         $data = $request->validated();
         $token = Str::random(100);
 
+        $this->repository->thenCreate(
+            $data['email'],
+            ['token'=> $token],
+            [
+                'email' => $data['email'],
+                'token' => $token
+            ]
+        );
+
         RecoverPasswordEvent::dispatch([
             'email' => $data['email'],
             'token' => $token

@@ -39,8 +39,10 @@ class Repository implements RepositoryInterface
 
     public function thenCreate($primaryKey,array $dataForUpdate, array $dataForSave) {
 
-        if($this->find($primaryKey))
-            return $this->update($primaryKey, $dataForUpdate);
+        $instance = $this->find($primaryKey);
+
+        if($instance)
+            return $instance->update($dataForUpdate);
 
         return $this->create($dataForSave);
     }

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
+use App\Http\Requests\Auth\UrlParameters\ResetPasswordIndexRequest;
 use App\Repository\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -18,11 +19,15 @@ class ResetPasswordController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(ResetPasswordIndexRequest $validator, Request $request)
     {
+        $data = $validator->validate($request);
 
-        $id = $this->repository->getId($request->email);
-        return view()->with(['id' => $id]);
+        if(!$data)
+            redirect('http://127.0.0.1:8000/')->withErrors($data);
+
+        $id = $this->repository->getId($data['email']);
+        return view('auth.reset-password-index')->with(['id' => $id]);
     }
 
     /**
