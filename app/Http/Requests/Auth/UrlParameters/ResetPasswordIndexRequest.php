@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth\UrlParameters;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ResetPasswordIndexRequest
 {
@@ -33,7 +34,7 @@ class ResetPasswordIndexRequest
         $result = validator($request->route()->parameters(), $this->rules, $this->messages);
 
         if($result->fails())
-           throw new \Exception($result->errors()->first());
+           return redirect('/')->withErrors($result->errors()->first());
 
         return $result->validate();
     }
