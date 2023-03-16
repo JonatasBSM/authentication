@@ -44,8 +44,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeGetId(Builder $query,string $email) {
-        return $query->where('email', '=', '$email')->first()->id;
-    }
 
 }

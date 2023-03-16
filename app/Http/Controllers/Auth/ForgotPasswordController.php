@@ -30,7 +30,7 @@ class ForgotPasswordController extends Controller
         $token = Str::random(100);
 
         RecoverPasswordEvent::dispatch([
-            'email' => $data->email,
+            'email' => $data['email'],
             'token' => $token
         ]);
 

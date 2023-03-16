@@ -34,7 +34,9 @@ Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->g
 
 Route::controller(\App\Http\Controllers\Auth\ResetPasswordController::class)->group(function () {
     Route::prefix('/reset-password')->group(function () {
-        Route::get('/{token}/{email}', 'index')->name('resetPassword');
+        Route::get('/{token}/{email}', 'index',[
+                'nocsrf' => true
+            ])->name('resetPassword');
         Route::put('/update/', 'update');
     });
 });

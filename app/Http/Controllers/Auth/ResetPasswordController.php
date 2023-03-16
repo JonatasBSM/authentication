@@ -18,11 +18,11 @@ class ResetPasswordController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ResetPasswordRequest $request)
+    public function index(Request $request)
     {
-        $data = $request->validated();
-        $id = $this->getId($data['email']);
-        return view()->with('id' => $id]);
+
+        $id = $this->repository->getId($request->email);
+        return view()->with(['id' => $id]);
     }
 
     /**
@@ -32,7 +32,7 @@ class ResetPasswordController extends Controller
     {
 
         $data = $request->validated();
-        
+
         return $this->update(
             $data['id'],
             ["password" => $data['password']]

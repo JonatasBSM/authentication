@@ -11,7 +11,7 @@ class ResetPasswordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -42,7 +42,7 @@ class ResetPasswordRequest extends FormRequest
             'password.required' => 'Password can\'t be null',
             'password.min:10' => 'Password must have at least 10 characters',
             'password.regex' => 'Password must have one letter, one number and one special character',
-            'password.confirmed' => 'Passwords need to be equal'
+            'password.confirmed' => 'Passwords need to be equal',
 
             'id.exists' => 'ID not found'
         ];

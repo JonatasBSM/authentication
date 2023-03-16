@@ -16,7 +16,11 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function getId(string $email)
     {
-        return $this->model->getId($email);
+        $user = $this->model->where('email', '=', $email)->first();
+        if(!$user)
+            throw new \Exception('User not found.');
+
+        return $user->id;
     }
 
 
