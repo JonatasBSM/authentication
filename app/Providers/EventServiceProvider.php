@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\AccountConfirmationEvent;
 use App\Events\RecoverPasswordEvent;
+use App\Listeners\AccountConfirmationListener;
 use App\Listeners\SendForgotPasswordListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,6 +21,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        AccountConfirmationEvent::class => [
+            AccountConfirmationListener::class
         ],
 
         RecoverPasswordEvent::class => [

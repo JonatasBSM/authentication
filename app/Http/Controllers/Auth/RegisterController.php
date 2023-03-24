@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\AccountConfirmationEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repository\Eloquent\UserRepository;
@@ -29,6 +30,9 @@ class RegisterController extends Controller
 
         if(!$this->repository->create($data))
             throw new \Exception("An error ocurred while registering your user, please try again later");
+
+
+        AccountConfirmationEvent::dispatch();
 
     }
 }

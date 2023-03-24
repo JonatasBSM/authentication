@@ -4,7 +4,7 @@ namespace App\Http\Requests\Auth\Index;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordIndexRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

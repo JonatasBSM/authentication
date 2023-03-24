@@ -8,17 +8,28 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmAccountEmail extends Mailable
+class ConfirmAccountMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+
+
+    private string $email;
+    private string $token;
+
+    /**
+     * @param string $email
+     * @param string $token
+     */
+    public function __construct($data)
     {
-        //
+        $this->email = $data["email"];
+        $this->token = $data["token"];
     }
+
 
     /**
      * Get the message envelope.
@@ -26,7 +37,7 @@ class ConfirmAccountEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirm Account Email',
+            subject: 'Confirm Accountmail',
         );
     }
 
@@ -36,7 +47,7 @@ class ConfirmAccountEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            markdown: 'auth.mails.confirm-account',
         );
     }
 

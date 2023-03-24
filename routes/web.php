@@ -25,6 +25,12 @@ Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( fun
 
 Route::resource('register', \App\Http\Controllers\Auth\RegisterController::class);
 
+Route::controller(\App\Http\Controllers\ConffirmAccountController::class)->group(function () {
+    Route::prefix('conffirm-account')->group(function () {
+        Route::get('/','index');
+    });
+});
+
 Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->group(function () {
     Route::prefix('forgot-password')->group(function () {
         Route::get('/', 'index');
@@ -33,7 +39,7 @@ Route::controller(\App\Http\Controllers\Auth\ForgotPasswordController::class)->g
 });
 
 Route::controller(\App\Http\Controllers\Auth\ResetPasswordController::class)->group(function () {
-    Route::prefix('/reset-password')->group(function () {
+    Route::prefix('reset-password')->group(function () {
         Route::get('/{token}/{email}', 'index',[
                 'nocsrf' => true
             ])->name('resetPassword');
