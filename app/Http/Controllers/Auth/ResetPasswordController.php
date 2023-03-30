@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\Index\ResetPasswordRequest;
 use App\Repository\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;

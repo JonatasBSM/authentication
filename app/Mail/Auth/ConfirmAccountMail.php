@@ -17,8 +17,8 @@ class ConfirmAccountMail extends Mailable
      */
 
 
-    private string $email;
-    private string $token;
+    public string $email;
+    public string $token;
 
     /**
      * @param string $email
@@ -26,6 +26,7 @@ class ConfirmAccountMail extends Mailable
      */
     public function __construct($data)
     {
+
         $this->email = $data["email"];
         $this->token = $data["token"];
     }

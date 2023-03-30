@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -23,16 +24,19 @@ class RegisterController extends Controller
         return ;
     }
 
-    public function store(RegisterRequest $request) {
-
+    public function signUp(RegisterRequest $request) {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
+        $data = array_merge($data,array('token' => Str::random(100)));
 
         if(!$this->repository->create($data))
             throw new \Exception("An error ocurred while registering your user, please try again later");
 
 
-        AccountConfirmationEvent::dispatch();
+        AccountConfirmationEvent::dispatch([
+            'email' => $data['email'],
+            'token' => $data['token']
+        ]);
 
     }
 }

@@ -23,11 +23,16 @@ Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group( fun
 
 });
 
-Route::resource('register', \App\Http\Controllers\Auth\RegisterController::class);
+Route::controller(\App\Http\Controllers\Auth\RegisterController::class)->group(function () {
+    Route::prefix('register')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/sign-up', 'signUp');
+    });
+});
 
 Route::controller(\App\Http\Controllers\ConffirmAccountController::class)->group(function () {
     Route::prefix('conffirm-account')->group(function () {
-        Route::get('/','index');
+        Route::get('/{token}/{email}','index')->name('conffirmAccount');
     });
 });
 
