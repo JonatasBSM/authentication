@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    public function messages() {
+    public function messages(): array {
         return [
             'name.required' => 'Name can\'t be null',
             'name.string' => 'Name can only have letters',
